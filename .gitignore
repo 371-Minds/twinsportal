@@ -1,0 +1,14 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# IDE Files
+.idea/
+.vscode/
+
+# Build Folders (if any)
+/dist/
+/build/
+
+# Dependency Folders (if any)
+/node_modules/
