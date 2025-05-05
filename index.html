@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twins Birthday Portal</title>
     <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
 </head>
 <body>
     <header>
@@ -17,13 +18,113 @@
     </nav>
 
     <main>
-        <!-- Main content sections will go here -->
+        <section id="guestbook">
+            <h2>Leave a Birthday Message!</h2>
+
+            <div id="message-wall">
+                <!-- Messages will be displayed here -->
+                <p>Loading messages...</p> 
+            </div>
+
+            <div class="submission-tabs">
+                <button class="tab-link active" onclick="openTab(event, 'text-submission')">Text Message</button>
+                <button class="tab-link" onclick="openTab(event, 'drawing-submission')">Draw a Message</button>
+                <button class="tab-link" onclick="openTab(event, 'voice-submission')">Record a Message</button>
+            </div>
+
+            <div id="text-submission" class="tab-content" style="display: block;">
+                <h3>Write your message:</h3>
+                <form id="text-message-form" onsubmit="handleTextMessageSubmit(); return false;">
+                    <textarea id="text-message-input" name="message" rows="4" cols="50" placeholder="Type your birthday wish here..." maxlength="250" required></textarea>
+                    <div id="emoji-picker-container">
+                        <emoji-picker></emoji-picker>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+
+            <div id="drawing-submission" class="tab-content">
+                <h3>Draw your masterpiece:</h3>
+                <div id="drawing-controls">
+                    <button id="pencil-tool">Pencil</button>
+                    <button id="brush-tool">Brush</button>
+                    <button id="eraser-tool">Eraser</button>
+                    <input type="color" id="color-picker" value="#000000">
+                    <button id="undo-btn">Undo</button>
+                    <button id="redo-btn">Redo</button>
+                </div>
+                <canvas id="drawing-canvas" width="800" height="600" style="border:1px solid #000; max-width: 100%; height: auto;"></canvas>
+                <div id="drawing-actions">
+                    <button id="save-drawing-btn">Save Drawing</button>
+                    <button id="discard-drawing-btn">Discard Drawing</button>
+                </div>
+            </div>
+
+            <div id="voice-submission" class="tab-content">
+                <h3>Record your greeting:</h3>
+                <div id="voice-controls">
+                    <button id="record-btn">Start Recording</button>
+                    <button id="stop-btn" disabled>Stop Recording</button>
+                    <p>Max duration: 30 seconds</p>
+                </div>
+                <div id="waveform-container">
+                    <!-- Real-time waveform visualization will appear here -->
+                    <p>(Waveform placeholder)</p>
+                </div>
+                <div id="audio-playback" style="display: none;">
+                    <audio id="audio-player" controls></audio>
+                    <button id="submit-voice-btn">Submit Recording</button>
+                    <button id="discard-voice-btn">Discard Recording</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Downloadable Goodies Section -->
+        <section id="download-zone">
+            <h2>Downloadable Goodies</h2>
+            <div class="download-categories">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="favors">Party Favors</button>
+                <button class="category-btn" data-category="coloring">Coloring Pages</button>
+                <button class="category-btn" data-category="stickers">Digital Stickers</button>
+            </div>
+            <div id="download-gallery" class="gallery-grid">
+                <!-- Download items will be loaded here -->
+                <div class="download-card" data-category="favors">
+                    <img src="images/placeholder_favor.png" alt="Party Favor 1" class="download-preview">
+                    <h3>Favor Title 1</h3>
+                    <button class="preview-btn">Preview</button>
+                    <button class="download-btn" data-file="downloads/favor1.pdf">Download</button>
+                </div>
+                 <div class="download-card" data-category="coloring">
+                    <img src="images/placeholder_coloring.png" alt="Coloring Page 1" class="download-preview">
+                    <h3>Coloring Page 1</h3>
+                    <button class="preview-btn">Preview</button>
+                    <button class="download-btn" data-file="downloads/coloring1.png">Download</button>
+                </div>
+                 <div class="download-card" data-category="stickers">
+                    <img src="images/placeholder_sticker.png" alt="Sticker 1" class="download-preview">
+                    <h3>Digital Sticker 1</h3>
+                    <button class="preview-btn">Preview</button>
+                    <button class="download-btn" data-file="downloads/sticker1.zip">Download</button>
+                </div>
+                <!-- Add more placeholder items as needed -->
+            </div>
+        </section>
+        <!-- Other main content sections can go here -->
     </main>
 
     <footer>
         <!-- Footer content will go here -->
         <p>&copy; iKidEdventures</p>
     </footer>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="preview-image">
+        <div id="caption"></div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
